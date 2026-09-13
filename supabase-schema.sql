@@ -114,6 +114,9 @@ create policy "Students can update attempts"
 create policy "Admins can read attempts"
   on public.attempts for select to authenticated using (true);
 
+create policy "Admins can update attempts"
+  on public.attempts for update to authenticated using (true) with check (true);
+
 create policy "Students can read own attempts"
   on public.attempts for select to anon, authenticated
   using (

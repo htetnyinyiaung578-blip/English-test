@@ -2800,6 +2800,45 @@ window.studentAttemptUpdated = attempt => {
   if (recoveredAttemptId && String(attempt.id) === String(recoveredAttemptId)) renderPersistentAttemptResult(attempt);
 };
 
+async function restoreStudentAttemptState() {
+  const storedAttemptId = sessionStorage.getItem("english_test_attempt_id");
+  const storedAttemptText = sessionStorage.getItem("english_test_last_attempt");
+  const fallbackAttemptId = storedAttemptText ? (() => { try { return JSON.parse(storedAttemptText)?.id || null; } catch { return null; } })() : null;
+  const attemptId = storedAttemptId || fallbackAttemptId;
+  if (!attemptId) return;
+
+  const latestAttempt = await window.realtimeFetchLatestAttempt?.(attemptId);
+  if (latestAttempt) {
+    recoveredAttemptId = latestAttempt.id;
+    sessionStorage.setItem("english_test_attempt_id", latestAttempt.id);
+    sessionStorage.setItem("english_test_last_attempt", JSON.stringify(latestAttempt));
+    window.realtimeSubscribeStudentAttempt?.(latestAttempt.id);
+    renderPersistentAttemptResult(latestAttempt);
+    return;
+  }
+
+  if (!storedAttemptText) return;
+  try {
+    const fallbackAttempt = JSON.parse(storedAttemptText);
+    if (fallbackAttempt?.id) {
+      recoveredAttemptId = fallbackAttempt.id;
+      renderPersistentAttemptResult(fallbackAttempt);
+    }
+  } catch (error) {
+    console.error("Unable to restore cached attempt", error);
+  }
+}
+
+window.addEventListener("load", () => {
+  restoreStudentAttemptState();
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) {
+    restoreStudentAttemptState();
+  }
+});
+
 async function submitTest(expired = false) {
   if (!activeTestPaper || !database.testProgress[activeTestPaper.id]) return;
 
@@ -2870,6 +2909,7 @@ async function submitTest(expired = false) {
     percentage,
     student_id: window.getPublicStudentId?.() || "Unknown"
   };
+  sessionStorage.setItem("english_test_attempt_id", submittedAttempt.id);
   recoveredAttemptId = submittedAttempt.id;
   if (hasManualReview) {
     sessionStorage.setItem("english_test_last_attempt", JSON.stringify(submittedAttempt));

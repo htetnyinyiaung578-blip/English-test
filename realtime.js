@@ -361,7 +361,11 @@ window.realtimeFindStudentAttempt = async (paperId) => {
 };
 
 function subscribeStudentAttempt(attemptId) {
-  if (!state.client || state.studentAttemptChannel) return;
+  if (!state.client || !attemptId) return;
+  if (state.studentAttemptChannel) {
+    state.client.removeChannel(state.studentAttemptChannel);
+    state.studentAttemptChannel = null;
+  }
   state.studentAttemptChannel = state.client.channel(`student-attempt-${attemptId}`).on("postgres_changes", { event: "UPDATE", schema: "public", table: "attempts", filter: `id=eq.${attemptId}` }, async () => {
     const latest = await state.client.from("attempts").select("*").eq("id", attemptId).maybeSingle();
     if (latest.data) { state.attempt = latest.data; window.studentAttemptUpdated?.(latest.data); }
@@ -513,9 +517,25 @@ window.realtimeSubmit = async (score, totalMarks, percentage) => {
   if (result.error) console.error("Attempt completion save failed", result.error);
   if (!result.error) {
     state.attempt = { ...(state.attempt || {}), id: state.attemptId, score, total_marks: totalMarks, percentage, manual_marks: {}, status: "completed", submitted_at: completedAt, updated_at: completedAt };
+    sessionStorage.setItem("english_test_attempt_id", state.attemptId);
     subscribeStudentAttempt(state.attemptId);
   }
   return { ...result, attemptId: state.attemptId, attempt: state.attempt };
+};
+
+window.realtimeFetchLatestAttempt = async (attemptId) => {
+  if (!state.client || !attemptId) return null;
+  const { data, error } = await state.client.from("attempts").select("*").eq("id", attemptId).maybeSingle();
+  if (error) {
+    console.error("Latest student attempt fetch failed", { attemptId, error });
+    return null;
+  }
+  return data;
+};
+
+window.realtimeSubscribeStudentAttempt = (attemptId) => {
+  if (!attemptId) return;
+  subscribeStudentAttempt(attemptId);
 };
 
 if (!configured) {
