@@ -1,0 +1,2990 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Test</title>
+
+  <style>
+    :root {
+      --primary: #5b5ce2;
+      --primary-dark: #4647c7;
+      --primary-soft: #eeeeff;
+      --bg: #f7f7fb;
+      --card: #ffffff;
+      --text: #171725;
+      --muted: #737386;
+      --border: #e8e8f0;
+      --danger: #e5484d;
+      --success: #16a36a;
+      --shadow: 0 12px 35px rgba(25, 25, 50, 0.08);
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    button, input, textarea, select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app {
+      min-height: 100vh;
+    }
+
+    /* NAVBAR */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1150px;
+      margin: auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: white;
+      background: var(--primary);
+      box-shadow: 0 8px 20px rgba(91,92,226,.25);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      border: none;
+      background: transparent;
+      padding: 10px 15px;
+      border-radius: 10px;
+      color: var(--muted);
+      font-weight: 600;
+      transition: .2s;
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    /* MAIN */
+
+    main {
+      max-width: 1150px;
+      margin: auto;
+      padding: 40px 24px 80px;
+    }
+
+    .page {
+      display: none;
+      animation: fade .35s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* HOME */
+
+    .hero {
+      text-align: center;
+      padding: 40px 0 45px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 13px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 1.05;
+      margin: 0;
+      letter-spacing: -2px;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 20px auto;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .home-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 30px;
+      box-shadow: var(--shadow);
+      transition: .25s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-icon {
+      width: 55px;
+      height: 55px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: var(--primary-soft);
+      font-size: 25px;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h2 {
+      margin: 0 0 10px;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* BUTTONS */
+
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .btn-danger {
+      background: #fff0f0;
+      color: var(--danger);
+    }
+
+    .btn-outline {
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    /* PAGE HEADER */
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .page-header h2 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+
+    .page-header p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    /* PAPER CARDS */
+
+    .paper-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .paper-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      transition: .2s;
+    }
+
+    .paper-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .paper-card h3 {
+      margin: 0 0 16px;
+    }
+
+    .paper-meta {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 6px 10px;
+      background: #f4f4f8;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* EMPTY */
+
+    .empty {
+      padding: 70px 20px;
+      text-align: center;
+      background: white;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      color: var(--muted);
+    }
+
+    /* MODAL */
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(10,10,20,.45);
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      width: min(800px, 100%);
+      background: white;
+      border-radius: 22px;
+      padding: 28px;
+      margin: auto;
+      animation: modal .25s ease;
+    }
+
+    @keyframes modal {
+      from { transform: scale(.97); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+    }
+
+    .close-btn {
+      border: none;
+      background: #f4f4f8;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      font-size: 20px;
+    }
+
+    /* FORM */
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 12px;
+      padding: 13px;
+      outline: none;
+      transition: .2s;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(91,92,226,.1);
+    }
+
+    .option-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .type-help {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .dynamic-fields {
+      padding: 16px;
+      background: #fafaff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .pair-row,
+    .order-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .order-row {
+      grid-template-columns: 1fr auto;
+    }
+
+    .compact-btn {
+      padding: 9px 12px;
+    }
+
+    .student-input {
+      margin-top: 16px;
+    }
+
+    .manual-answer {
+      min-height: 180px;
+      margin-top: 16px;
+    }
+
+    .review-box {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+      padding: 12px;
+      background: #fffaf0;
+      border: 1px solid #f0dfb5;
+      border-radius: 12px;
+    }
+
+    .review-box small {
+      color: var(--muted);
+    }
+
+    .review-status {
+      display: inline-flex;
+      width: fit-content;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .review-status.pending {
+      background: #fff4df;
+      color: #946d16;
+    }
+
+    .review-status.reviewed {
+      background: #e4f7ed;
+      color: var(--success);
+    }
+
+    .manual-review-row {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      margin-top: 10px;
+      background: #fffaf0;
+      border: 1px solid #f0dfb5;
+      border-radius: 12px;
+    }
+
+    .manual-review-row textarea {
+      min-height: 80px;
+    }
+
+    .manual-review-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .review-modal-content {
+      width: min(1050px, 100%);
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+
+    .review-modal-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .review-modal-question {
+      padding: 15px;
+      margin-top: 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .review-modal-question h4 {
+      margin: 0 0 8px;
+    }
+
+    .review-modal-question p {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .pair-mark-list {
+      display: grid;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .matching-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .matching-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(150px, .8fr);
+      gap: 12px;
+      align-items: center;
+    }
+
+    .matching-prompt {
+      padding: 13px;
+      border-radius: 12px;
+      background: var(--primary-soft);
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .order-bank,
+    .order-answer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      min-height: 52px;
+      padding: 12px;
+      margin-top: 12px;
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+    }
+
+    .order-word {
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 10px;
+      padding: 10px 13px;
+      color: var(--text);
+    }
+
+    .order-word.selected {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .option-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .option-letter {
+      width: 35px;
+      height: 35px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-radius: 10px;
+      font-weight: 800;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    /* EDITOR */
+
+    .editor-layout {
+      display: grid;
+      grid-template-columns: 1fr 330px;
+      gap: 25px;
+      align-items: start;
+    }
+
+    .question-list {
+      display: grid;
+      gap: 15px;
+    }
+
+    .question-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      transition: .2s;
+    }
+
+    .question-card:hover {
+      box-shadow: var(--shadow);
+    }
+
+    .question-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .question-number {
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .question-card p {
+      line-height: 1.6;
+    }
+
+    .question-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .summary-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      position: sticky;
+      top: 90px;
+    }
+
+    .summary-card h3 {
+      margin-top: 0;
+    }
+
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* TEST */
+
+    .test-container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .progress-box {
+      margin-bottom: 25px;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .progress {
+      height: 8px;
+      background: #e9e9f2;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      transition: width .3s ease;
+    }
+
+    .test-question {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .answer-option {
+      width: 100%;
+      text-align: left;
+      padding: 16px;
+      margin-top: 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: white;
+      transition: .2s;
+    }
+
+    .answer-option:hover {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+
+    .answer-option.selected {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .test-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    /* RESULT */
+
+    .result-card {
+      max-width: 650px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 25px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .result-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .result-stat {
+      padding: 12px;
+      background: #f7f7fb;
+      border-radius: 12px;
+    }
+
+    .result-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .mistake-review {
+      display: grid;
+      gap: 14px;
+      margin-top: 28px;
+      text-align: left;
+    }
+
+    .review-waiting {
+      padding: 24px 10px;
+      text-align: center;
+    }
+
+    .review-loader {
+      width: 42px;
+      height: 42px;
+      margin: 18px auto;
+      border: 4px solid var(--primary-soft);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin .9s linear infinite;
+    }
+
+    .review-scene {
+      position: relative;
+      width: 110px;
+      height: 76px;
+      margin: 14px auto 4px;
+    }
+
+    .review-paper {
+      position: absolute;
+      inset: 8px 28px;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 8px 18px rgba(25, 25, 50, .1);
+      transform: rotate(-5deg);
+    }
+
+    .review-paper::after {
+      content: "✓  ✓  ✓";
+      display: block;
+      margin-top: 18px;
+      color: var(--success);
+      font-size: 12px;
+      letter-spacing: 2px;
+      animation: reviewPulse 1.4s ease-in-out infinite;
+    }
+
+    .review-pencil {
+      position: absolute;
+      right: 12px;
+      bottom: 8px;
+      width: 44px;
+      height: 8px;
+      border-radius: 5px;
+      background: #f0b34d;
+      transform: rotate(-35deg);
+      animation: pencilMove 1.4s ease-in-out infinite;
+    }
+
+    @keyframes reviewPulse { 50% { opacity: .35; } }
+    @keyframes pencilMove { 50% { transform: translate(-8px, -4px) rotate(-35deg); } }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .mistake-card {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .mistake-card h3 {
+      margin: 0 0 10px;
+    }
+
+    .mistake-answer {
+      display: grid;
+      gap: 6px;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 10px;
+    }
+
+    .mistake-answer.yours {
+      background: #fff1f1;
+    }
+
+    .mistake-answer.correct-answer {
+      background: #eaf8f0;
+    }
+
+    .mistake-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .monitor-status {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #fff4df;
+      color: #946d16;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .monitor-status.connected {
+      background: #e4f7ed;
+      color: var(--success);
+    }
+
+    .admin-login-panel,
+    .admin-session {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .admin-login-panel p {
+      color: var(--muted);
+    }
+
+    .admin-login-error {
+      color: var(--danger) !important;
+      min-height: 20px;
+      margin: 12px 0 0;
+    }
+
+    .admin-session {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .attempt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 20px;
+    }
+
+    .attempt-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .monitor-toolbar {
+      display: grid;
+      grid-template-columns: minmax(220px, 1.5fr) repeat(2, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .monitor-summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .monitor-stat {
+      padding: 16px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .monitor-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .monitor-stat strong {
+      font-size: 24px;
+    }
+
+    .attempt-card.submitted-card {
+      border-top: 3px solid var(--success);
+    }
+
+    .attempt-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .attempt-details {
+      margin-top: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+
+    .attempt-details summary {
+      cursor: pointer;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .answer-filter {
+      width: auto;
+      min-width: 190px;
+      margin-top: 10px;
+    }
+
+    .attempt-header,
+    .attempt-summary {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .attempt-header small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 4px;
+      word-break: break-all;
+    }
+
+    .attempt-card h3 {
+      margin: 22px 0 14px;
+    }
+
+    .attempt-status {
+      border-radius: 999px;
+      padding: 6px 9px;
+      background: #fff4df;
+      color: #946d16;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .attempt-status.submitted {
+      background: #e4f7ed;
+      color: var(--success);
+    }
+
+    .attempt-progress {
+      height: 8px;
+      background: #e9e9f2;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .attempt-progress div {
+      height: 100%;
+      background: var(--primary);
+      transition: width .3s ease;
+    }
+
+    .attempt-summary {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 10px 0 14px;
+    }
+
+    .attempt-summary strong {
+      color: var(--primary);
+    }
+
+    .attempt-answers {
+      display: grid;
+      gap: 7px;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    .attempt-answer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 10px;
+      background: #f7f7fb;
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      align-items: flex-start;
+    }
+
+    .attempt-answer.correct {
+      background: #eaf8f0;
+      border-left: 3px solid var(--success);
+    }
+
+    .attempt-answer.incorrect {
+      background: #fff1f1;
+      border-left: 3px solid var(--danger);
+    }
+
+    .attempt-answer.unanswered {
+      background: #f4f4f8;
+      border-left: 3px solid #a0a0b0;
+    }
+
+    .answer-copy {
+      display: grid;
+      gap: 3px;
+      flex: 1;
+    }
+
+    .answer-copy small {
+      color: var(--muted);
+    }
+
+    .answer-status {
+      flex-shrink: 0;
+      font-weight: 800;
+    }
+
+    .attempt-answer strong {
+      color: var(--text);
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .score-circle {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      margin: 25px auto;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 35px;
+      font-weight: 800;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 800px) {
+      .home-grid,
+      .editor-layout,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-card {
+        position: static;
+      }
+
+      .page-header {
+        flex-direction: column;
+      }
+
+      .monitor-toolbar,
+      .monitor-summary {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .nav-inner {
+        padding: 14px 16px;
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        flex-basis: 100%;
+        width: auto;
+        justify-content: space-between;
+      }
+
+      main {
+        padding: 30px 16px;
+      }
+
+      .nav-btn {
+        padding: 8px 10px;
+        font-size: 13px;
+      }
+
+      .brand {
+        font-size: 16px;
+      }
+
+      .feature-card,
+      .test-question,
+      .modal-content {
+        padding: 20px;
+      }
+
+      .pair-row,
+      .matching-row {
+        grid-template-columns: 1fr;
+      }
+
+      .monitor-toolbar,
+      .monitor-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .attempt-header,
+      .attempt-summary {
+        flex-wrap: wrap;
+      }
+
+      .result-summary {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .review-modal-meta {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <nav class="navbar">
+    <div class="nav-inner">
+
+      <div class="brand">
+        <div class="brand-icon">E</div>
+        English Test
+      </div>
+
+      <div class="nav-links">
+        <button class="nav-btn active" onclick="showPage('home', this)">Home</button>
+        <button class="nav-btn" onclick="showPage('create', this)">Create</button>
+        <button class="nav-btn" onclick="showPage('take', this)">Take Test</button>
+        <button class="nav-btn" onclick="showPage('monitor', this)">Live Monitor</button>
+      </div>
+
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- HOME -->
+
+    <section id="home" class="page active">
+
+      <div class="hero">
+        <span class="eyebrow">Simple • Modern • Smart</span>
+
+        <h1>Build tests.<br>Challenge minds.</h1>
+
+        <p>
+          Create English question papers, manage questions easily,
+          and take tests with automatic saving and instant results.
+        </p>
+      </div>
+
+      <div class="home-grid">
+
+        <div class="feature-card">
+          <div class="feature-icon">✍️</div>
+
+          <h2>Create Question Paper</h2>
+
+          <p>
+            Create up to 3 question papers with up to 70 questions each.
+            Manage marks, answers, and questions easily.
+          </p>
+
+          <button class="btn btn-primary" onclick="showPage('create')">
+            Create Papers
+          </button>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📝</div>
+
+          <h2>Take a Test</h2>
+
+          <p>
+            Choose an available paper, answer questions comfortably,
+            and get your final score instantly.
+          </p>
+
+          <button class="btn btn-secondary" onclick="showPage('take')">
+            Take Test
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CREATE -->
+
+    <section id="create" class="page">
+
+      <div class="page-header">
+        <div>
+          <h2>Question Papers</h2>
+          <p>Create and manage up to 3 English test papers.</p>
+        </div>
+
+        <button class="btn btn-primary" onclick="openPaperModal()">
+          + New Paper
+        </button>
+      </div>
+
+      <div id="paperList" class="paper-grid"></div>
+
+    </section>
+
+
+    <!-- EDITOR -->
+
+    <section id="editor" class="page">
+
+      <div class="page-header">
+        <div>
+          <button class="btn btn-outline" onclick="showPage('create')">
+            ← Back
+          </button>
+
+          <h2 id="editorTitle" style="margin-top:15px"></h2>
+          <p>Add, edit, or delete questions.</p>
+        </div>
+
+        <button class="btn btn-primary" onclick="openQuestionModal()">
+          + Add Question
+        </button>
+      </div>
+
+      <div class="editor-layout">
+
+        <div>
+          <div id="questionList" class="question-list"></div>
+        </div>
+
+        <aside class="summary-card">
+          <h3>Paper Summary</h3>
+
+          <div class="stat">
+            <span>Questions</span>
+            <strong id="questionCount">0 / 70</strong>
+          </div>
+
+          <div class="stat">
+            <span>Total Marks</span>
+            <strong id="totalMarks">0</strong>
+          </div>
+        </aside>
+
+      </div>
+
+    </section>
+
+
+    <!-- TAKE TEST -->
+
+    <section id="take" class="page">
+
+      <div class="page-header">
+        <div>
+          <h2>Take a Test</h2>
+          <p>Choose a question paper to begin.</p>
+        </div>
+      </div>
+
+      <div id="testPaperList" class="paper-grid"></div>
+
+    </section>
+
+
+    <!-- TEST -->
+
+    <section id="test" class="page">
+
+      <div class="test-container">
+
+        <div class="page-header">
+          <div>
+            <h2 id="testTitle"></h2>
+            <p>Your answers are saved automatically.</p>
+          </div>
+        </div>
+
+        <div class="progress-box">
+
+          <div class="progress-text">
+            <span id="progressLabel">Question 1</span>
+            <span id="answeredCount">0 answered</span>
+          </div>
+
+          <div class="progress">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+
+        </div>
+
+        <div id="testTimerBox" class="progress-box" style="margin-top:14px; display:none;">
+          <div class="progress-text">
+            <span>Time remaining</span>
+            <strong id="testTimer">00:00</strong>
+          </div>
+        </div>
+
+        <div id="testQuestion"></div>
+
+        <div class="test-nav">
+          <button id="prevBtn" class="btn btn-outline" onclick="previousQuestion()">
+            ← Previous
+          </button>
+
+          <button id="nextBtn" class="btn btn-primary" onclick="nextQuestion()">
+            Next →
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- RESULT -->
+
+    <section id="result" class="page">
+
+      <div class="result-card">
+
+        <span class="eyebrow">Test Completed</span>
+
+        <h1>Great work! 🎉</h1>
+
+        <div class="score-circle">
+          <span id="finalScore">0</span>
+        </div>
+
+        <h2 id="resultText"></h2>
+
+        <p id="resultDetails" style="color:var(--muted)"></p>
+
+        <div id="reviewWaiting" class="review-waiting" hidden>
+          <div class="review-scene" aria-hidden="true"><div class="review-paper"></div><div class="review-pencil"></div></div>
+          <h2>Your test is being reviewed</h2>
+          <p style="color:var(--muted)">Your answers are saved. The final result will appear here after the teacher finishes reviewing.</p>
+        </div>
+
+        <button id="resultReviewButton" class="btn btn-primary" onclick="showMistakeReview()">
+          Review My Mistakes
+        </button>
+
+        <button class="btn btn-outline" onclick="showPage('home')">
+          ← Back to Home
+        </button>
+
+        <div id="mistakeReview" class="mistake-review" hidden></div>
+
+      </div>
+
+    </section>
+
+    <!-- LIVE MONITOR -->
+
+    <section id="monitor" class="page">
+
+      <div class="page-header">
+        <div>
+          <h2>Live Monitor</h2>
+          <p>Watch learner answers and progress update in real time.</p>
+        </div>
+
+        <span id="monitorConnection" class="monitor-status">Connecting...</span>
+      </div>
+
+      <div id="adminLoginPanel" class="admin-login-panel">
+        <h3>Admin sign in</h3>
+        <p>Use the email address and password you created in Supabase Authentication.</p>
+        <div class="form-grid">
+          <input id="adminEmail" type="email" placeholder="Admin email" autocomplete="username" />
+          <input id="adminPassword" type="password" placeholder="Password" autocomplete="current-password" />
+        </div>
+        <button class="btn btn-primary" onclick="window.adminSignIn?.()">Sign In</button>
+        <p class="admin-login-hint">Students do not need an account. Only the creator signs in here.</p>
+        <p id="adminLoginError" class="admin-login-error"></p>
+      </div>
+
+      <div id="adminSession" class="admin-session" hidden>
+        <span>Signed in as <strong id="adminEmailLabel"></strong></span>
+        <button class="btn btn-outline" onclick="window.adminSignOut?.()">Sign Out</button>
+      </div>
+
+      <div id="monitorControls" hidden>
+        <div class="monitor-toolbar">
+          <input id="attemptSearch" type="search" placeholder="Search student name or ID" oninput="window.monitorSetFilter?.('search', this.value)" />
+          <select id="attemptStatusFilter" onchange="window.monitorSetFilter?.('status', this.value)">
+            <option value="all">All Attempts</option>
+            <option value="in-progress">Currently Taking Test</option>
+            <option value="submitted">Completed Tests</option>
+            <option value="correct">Has Correct Answers</option>
+            <option value="incorrect">Has Incorrect Answers</option>
+            <option value="unanswered">Has Unanswered Questions</option>
+            <option value="pending">Pending Review</option>
+            <option value="reviewed">Reviewed</option>
+          </select>
+          <button class="btn btn-outline" onclick="window.monitorResetFilters?.()">Reset Filters</button>
+        </div>
+
+        <div id="monitorSummary" class="monitor-summary"></div>
+      </div>
+
+      <div id="attemptList" class="attempt-grid">
+        <div class="empty">
+          <h3>No live attempts yet</h3>
+          <p>Test taker progress will appear here once Firebase is configured.</p>
+        </div>
+      </div>
+
+      <div id="attemptReviewModal" class="modal" aria-hidden="true">
+        <div class="modal-content review-modal-content">
+          <div class="modal-header">
+            <h3 id="attemptReviewTitle">Review Answers</h3>
+            <button class="close-btn" onclick="window.monitorCloseReview?.()">×</button>
+          </div>
+          <div id="attemptReviewBody"></div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+
+<!-- PAPER MODAL -->
+
+<div id="paperModal" class="modal">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h3>Create Question Paper</h3>
+
+      <button class="close-btn" onclick="closeModal('paperModal')">
+        ×
+      </button>
+    </div>
+
+    <div class="form-group">
+      <label for="paperTitle">Paper Title</label>
+
+      <input
+        id="paperTitle"
+        placeholder="Example: English Grammar Test"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="paperTimerEnabled">Timer / Time limit</label>
+      <label style="display:flex; align-items:center; gap:10px; margin-top:8px;">
+        <input id="paperTimerEnabled" type="checkbox" />
+        Enable timer for this paper
+      </label>
+    </div>
+
+    <div id="paperTimerSettings" class="form-group" style="display:none;">
+      <label for="paperTimeLimit">Duration in minutes</label>
+      <input id="paperTimeLimit" type="number" min="1" step="1" value="30" />
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('paperModal')">
+        Cancel
+      </button>
+
+      <button class="btn btn-primary" onclick="createPaper()">
+        Create Paper
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- QUESTION MODAL -->
+
+<div id="questionModal" class="modal">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h3 id="questionModalTitle">Add Question</h3>
+
+      <button class="close-btn" onclick="closeModal('questionModal')">
+        ×
+      </button>
+    </div>
+
+    <div class="form-group">
+
+      <label for="questionText">Question</label>
+
+      <textarea
+        id="questionText"
+        placeholder="Write your question..."
+      ></textarea>
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="questionInstruction">Instruction (optional)</label>
+
+      <input
+        id="questionInstruction"
+        placeholder="Example: Choose the correct answer."
+      />
+
+    </div>
+
+
+    <div class="form-group">
+      <label for="questionType">Question Type</label>
+      <select id="questionType" onchange="renderQuestionFields()">
+        <option value="multiple-choice">Multiple Choice</option>
+        <option value="true-false">True / False</option>
+        <option value="fill-blank">Fill in the Blank</option>
+        <option value="short-answer">Short Answer</option>
+        <option value="matching">Matching</option>
+        <option value="ordering">Ordering Words</option>
+        <option value="explanation">Explanation / Manual Review</option>
+      </select>
+      <p id="questionTypeHelp" class="type-help"></p>
+    </div>
+
+    <div id="questionTypeFields" class="dynamic-fields"></div>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+
+        <label for="marks">Marks</label>
+
+        <input
+          id="marks"
+          type="number"
+          min="1"
+          value="1"
+        />
+
+      </div>
+
+    </div>
+
+
+    <div class="modal-actions">
+
+      <button class="btn btn-outline" onclick="closeModal('questionModal')">
+        Cancel
+      </button>
+
+      <button class="btn btn-primary" onclick="saveQuestion()">
+        Save Question
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   LOCAL DATABASE
+========================= */
+
+const STORAGE_KEY = "english_test_database";
+
+let database = JSON.parse(
+  localStorage.getItem(STORAGE_KEY)
+) || {
+  papers: [],
+  testProgress: {}
+};
+
+function saveDatabase() {
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(database)
+  );
+}
+
+window.realtimeLoadPapers = papers => {
+  database.papers = papers;
+  saveDatabase();
+  renderPapers();
+  renderTestPapers();
+};
+
+
+/* =========================
+   GLOBAL STATE
+========================= */
+
+let currentPaperId = null;
+let editingQuestionId = null;
+let editingPaperId = null;
+
+let activeTestPaper = null;
+let currentTestIndex = 0;
+let testTakerName = sessionStorage.getItem("english_test_taker_name") || "";
+let activeTestTimerId = null;
+let activeTestOverdue = false;
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function showPage(pageId, button = null) {
+
+  document.querySelectorAll(".page")
+    .forEach(page => {
+      page.classList.remove("active");
+    });
+
+  document.getElementById(pageId)
+    .classList.add("active");
+
+  document.querySelectorAll(".nav-btn")
+    .forEach(btn => btn.classList.remove("active"));
+
+  if (button) {
+    button.classList.add("active");
+  }
+
+  if (pageId === "create") {
+    renderPapers();
+  }
+
+  if (pageId === "take") {
+    renderTestPapers();
+    refreshTestPaperAttemptStates();
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+/* =========================
+   MODALS
+========================= */
+
+function openPaperModal(paperId = null) {
+
+  if (!window.realtimeIsAdmin?.()) {
+    alert("Please sign in as an admin before creating or managing papers.");
+    showPage("monitor");
+    return;
+  }
+
+  if (!paperId && database.papers.length >= 3) {
+    alert("You can create a maximum of 3 question papers.");
+    return;
+  }
+
+  editingPaperId = paperId;
+  const paper = paperId ? database.papers.find(item => item.id === paperId) : null;
+  document.getElementById("paperTitle").value = paper ? paper.title : "";
+  document.getElementById("paperTimerEnabled").checked = Boolean(paper?.timer_enabled);
+  document.getElementById("paperTimeLimit").value = paper ? String(paper.time_limit_minutes || 30) : "30";
+  document.getElementById("paperTimerSettings").style.display = document.getElementById("paperTimerEnabled").checked ? "block" : "none";
+  document.getElementById("paperTimerEnabled").onchange = () => {
+    const visible = document.getElementById("paperTimerEnabled").checked;
+    document.getElementById("paperTimerSettings").style.display = visible ? "block" : "none";
+  };
+
+  document.getElementById("paperModal").classList.add("show");
+}
+
+
+function closeModal(id) {
+
+  document.getElementById(id)
+    .classList.remove("show");
+}
+
+
+/* =========================
+   PAPERS
+========================= */
+
+function createPaper() {
+
+  const title = document
+    .getElementById("paperTitle")
+    .value
+    .trim();
+
+  if (!title) {
+    alert("Please enter a paper title.");
+    return;
+  }
+
+  const enabled = document.getElementById("paperTimerEnabled").checked;
+  const minutes = Number(document.getElementById("paperTimeLimit").value || 0);
+
+  if (enabled && (!Number.isFinite(minutes) || minutes < 1)) {
+    alert("Timer duration must be at least 1 minute when enabled.");
+    return;
+  }
+
+  const paper = editingPaperId
+    ? database.papers.find(item => item.id === editingPaperId)
+    : {
+        id: Date.now().toString(),
+        questions: []
+      };
+
+  if (!paper) return;
+
+  paper.title = title;
+  paper.timer_enabled = enabled;
+  paper.time_limit_minutes = enabled ? minutes : 0;
+
+  if (!editingPaperId) {
+    database.papers.push(paper);
+  }
+
+  window.realtimeSavePaper?.(paper);
+
+  saveDatabase();
+
+  closeModal("paperModal");
+  editingPaperId = null;
+
+  renderPapers();
+}
+
+
+function renderPapers() {
+
+  const container =
+    document.getElementById("paperList");
+
+  if (!database.papers.length) {
+
+    container.innerHTML = `
+      <div class="empty">
+        <h3>No question papers yet</h3>
+        <p>Create your first English test paper.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML =
+    database.papers.map(paper => {
+
+      const totalMarks =
+        paper.questions.reduce(
+          (total, question) =>
+            total + Number(question.marks),
+          0
+        );
+
+      return `
+        <div class="paper-card">
+
+          <h3>${escapeHTML(paper.title)}</h3>
+
+          <div class="paper-meta">
+            <span class="badge">
+              ${paper.questions.length} Questions
+            </span>
+
+            <span class="badge">
+              ${totalMarks} Marks
+            </span>
+
+            <span class="badge">
+              ${paper.timer_enabled && Number(paper.time_limit_minutes || 0) > 0 ? `${Number(paper.time_limit_minutes)} min timer` : "No timer"}
+            </span>
+          </div>
+
+          <div class="card-actions">
+
+            <button
+              class="btn btn-primary"
+              onclick="openEditor('${paper.id}')"
+            >
+              Manage
+            </button>
+
+            <button
+              class="btn btn-secondary"
+              onclick="openPaperModal('${paper.id}')"
+            >
+              Edit Timer
+            </button>
+
+            <button
+              class="btn btn-danger"
+              onclick="deletePaper('${paper.id}')"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
+}
+
+
+function deletePaper(id) {
+
+  if (!window.realtimeIsAdmin?.()) {
+    alert("Please sign in as an admin before deleting papers.");
+    showPage("monitor");
+    return;
+  }
+
+  const paper =
+    database.papers.find(p => p.id === id);
+
+  if (!paper) return;
+
+  const confirmed =
+    confirm(`Delete "${paper.title}"?`);
+
+  if (!confirmed) return;
+
+  database.papers =
+    database.papers.filter(
+      paper => paper.id !== id
+    );
+
+  window.realtimeDeletePaper?.(id);
+
+  delete database.testProgress[id];
+
+  saveDatabase();
+
+  renderPapers();
+}
+
+
+/* =========================
+   EDITOR
+========================= */
+
+function openEditor(id) {
+
+  currentPaperId = id;
+
+  const paper = getCurrentPaper();
+
+  document.getElementById("editorTitle")
+    .textContent = paper.title;
+
+  renderQuestions();
+
+  showPage("editor");
+}
+
+
+function getCurrentPaper() {
+
+  return database.papers.find(
+    paper => paper.id === currentPaperId
+  );
+}
+
+
+function renderQuestions() {
+
+  const paper = getCurrentPaper();
+
+  if (!paper) return;
+
+  const container =
+    document.getElementById("questionList");
+
+  const totalMarks =
+    paper.questions.reduce(
+      (total, question) =>
+        total + Number(question.marks),
+      0
+    );
+
+  document.getElementById("questionCount")
+    .textContent =
+      `${paper.questions.length} / 70`;
+
+  document.getElementById("totalMarks")
+    .textContent = totalMarks;
+
+
+  if (!paper.questions.length) {
+
+    container.innerHTML = `
+      <div class="empty">
+        <h3>No questions yet</h3>
+        <p>Add your first question to this paper.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML =
+    paper.questions.map(
+      (question, index) => `
+
+      <div class="question-card">
+
+        <div class="question-top">
+
+          <div>
+            <div class="question-number">
+              QUESTION ${index + 1}
+            </div>
+
+            <p>
+              ${escapeHTML(question.text)}
+            </p>
+
+            <span class="badge">
+              ${escapeHTML(questionTypeLabel(question))}
+            </span>
+          </div>
+
+          <span class="badge">
+            ${question.marks} Marks
+          </span>
+
+        </div>
+
+
+        <div class="question-actions">
+
+          <button
+            class="btn btn-secondary"
+            onclick="editQuestion('${question.id}')"
+          >
+            Edit
+          </button>
+
+          <button
+            class="btn btn-danger"
+            onclick="deleteQuestion('${question.id}')"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
+}
+
+function questionTypeLabel(question) {
+  const labels = {
+    "multiple-choice": "Multiple Choice",
+    "true-false": "True / False",
+    "fill-blank": "Fill in the Blank",
+    "short-answer": "Short Answer",
+    matching: "Matching",
+    ordering: "Ordering Words",
+    explanation: "Explanation / Manual Review"
+  };
+  return labels[question.type || "multiple-choice"] || "Multiple Choice";
+}
+
+
+/* =========================
+   QUESTIONS
+========================= */
+
+function openQuestionModal() {
+
+  if (!window.realtimeIsAdmin?.()) {
+    alert("Please sign in as an admin before editing questions.");
+    showPage("monitor");
+    return;
+  }
+
+  const paper = getCurrentPaper();
+
+  if (!paper) return;
+
+  if (paper.questions.length >= 70) {
+    alert("Maximum 70 questions per paper.");
+    return;
+  }
+
+  editingQuestionId = null;
+
+  document.getElementById("questionModalTitle")
+    .textContent = "Add Question";
+
+  document.getElementById("questionText").value = "";
+  document.getElementById("questionInstruction").value = "";
+  document.getElementById("questionType").value = "multiple-choice";
+  document.getElementById("marks").value = "1";
+  renderQuestionFields();
+
+  document.getElementById("questionModal")
+    .classList.add("show");
+}
+
+
+const QUESTION_TYPE_HELP = {
+  "multiple-choice": "Add at least two options and choose one correct answer.",
+  "true-false": "Students will choose True or False.",
+  "fill-blank": "Use ___ or [blank] in the sentence, then provide the answer.",
+  "short-answer": "Add one or more accepted answers separated by commas.",
+  matching: "Add a left item and its matching right item for each pair.",
+  ordering: "Enter each word or sentence part in its correct order.",
+  explanation: "Students write an explanation. The teacher assigns marks manually after submission."
+};
+
+function renderQuestionFields(data = {}) {
+  const type = document.getElementById("questionType").value;
+  const fields = document.getElementById("questionTypeFields");
+  document.getElementById("questionTypeHelp").textContent = QUESTION_TYPE_HELP[type];
+
+  if (type === "multiple-choice") {
+    const options = data.options || ["", "", "", ""];
+    fields.innerHTML = `<label>Answer Options</label><div class="option-list">${options.map((option, index) => `<div class="option-row"><span class="option-letter">${String.fromCharCode(65 + index)}</span><input class="mc-option" value="${escapeAttribute(option)}" placeholder="Option ${String.fromCharCode(65 + index)}" /></div>`).join("")}</div><div class="form-group" style="margin:16px 0 0"><label for="mcCorrectAnswer">Correct Answer</label><select id="mcCorrectAnswer">${options.map((option, index) => `<option value="${index}" ${Number(data.correctAnswer) === index ? "selected" : ""}>Option ${String.fromCharCode(65 + index)}${option ? ` - ${escapeHTML(option)}` : ""}</option>`).join("")}</select></div>`;
+    return;
+  }
+
+  if (type === "true-false") {
+    fields.innerHTML = `<div class="form-group"><label for="trueFalseAnswer">Correct Answer</label><select id="trueFalseAnswer"><option value="True" ${data.correctAnswer === "True" ? "selected" : ""}>True</option><option value="False" ${data.correctAnswer === "False" ? "selected" : ""}>False</option></select></div>`;
+    return;
+  }
+
+  if (type === "fill-blank" || type === "short-answer") {
+    fields.innerHTML = `<label for="acceptedAnswers">${type === "fill-blank" ? "Correct Answer" : "Accepted Answers"}</label><input id="acceptedAnswers" value="${escapeAttribute((data.acceptedAnswers || (data.correctAnswer ? [data.correctAnswer] : [])).join(", "))}" placeholder="${type === "fill-blank" ? "Example: went" : "Example: quick, fast"}" /><p class="type-help">Answers are checked without case or extra outer spaces.</p>`;
+    return;
+  }
+
+  if (type === "explanation") {
+    fields.innerHTML = `<label for="referenceAnswer">Reference Answer / Marking Notes (optional)</label><textarea id="referenceAnswer" placeholder="Optional guidance for the teacher only"></textarea>`;
+    fields.querySelector("#referenceAnswer").value = data.referenceAnswer || "";
+    return;
+  }
+
+  if (type === "matching") {
+    const pairs = data.pairs?.length ? data.pairs : [{ left: "", right: "" }, { left: "", right: "" }];
+    const marksPerPair = data.marksPerPair || (data.marks && pairs.length ? Number(data.marks) / pairs.length : 1);
+    fields.innerHTML = `<label>Matching Pairs</label><div id="pairFields">${pairs.map(pair => `<div class="pair-row"><input class="pair-left" value="${escapeAttribute(pair.left)}" placeholder="Item" /><input class="pair-right" value="${escapeAttribute(pair.right)}" placeholder="Match" /><button type="button" class="btn btn-danger compact-btn" onclick="this.parentElement.remove()">Remove</button></div>`).join("")}</div><div class="form-group"><label for="marksPerPair">Marks per Correct Match</label><input id="marksPerPair" type="number" min="0.5" step="0.5" value="${marksPerPair}" /><p class="type-help">Total marks update from the number of pairs.</p></div><button type="button" class="btn btn-secondary compact-btn" onclick="addPairField()">+ Add Pair</button>`;
+    return;
+  }
+
+  const items = data.items || ["", "", "", ""];
+  fields.innerHTML = `<label>Correct Order</label><div id="orderFields">${items.map(item => `<div class="order-row"><input class="order-item" value="${escapeAttribute(item)}" placeholder="Word or sentence part" /><button type="button" class="btn btn-danger compact-btn" onclick="this.parentElement.remove()">Remove</button></div>`).join("")}</div><button type="button" class="btn btn-secondary compact-btn" onclick="addOrderField()">+ Add Part</button>`;
+}
+
+function escapeAttribute(value = "") {
+  return escapeHTML(value).replace(/"/g, "&quot;");
+}
+
+function addPairField() {
+  const row = document.createElement("div");
+  row.className = "pair-row";
+  row.innerHTML = `<input class="pair-left" placeholder="Item" /><input class="pair-right" placeholder="Match" /><button type="button" class="btn btn-danger compact-btn" onclick="this.parentElement.remove()">Remove</button>`;
+  document.getElementById("pairFields").appendChild(row);
+}
+
+function addOrderField() {
+  const row = document.createElement("div");
+  row.className = "order-row";
+  row.innerHTML = `<input class="order-item" placeholder="Word or sentence part" /><button type="button" class="btn btn-danger compact-btn" onclick="this.parentElement.remove()">Remove</button>`;
+  document.getElementById("orderFields").appendChild(row);
+}
+
+
+function saveQuestion() {
+
+  if (!window.realtimeIsAdmin?.()) {
+    alert("Your admin session has expired. Please sign in again.");
+    closeModal("questionModal");
+    showPage("monitor");
+    return;
+  }
+
+  const text =
+    document.getElementById("questionText")
+      .value.trim();
+
+  const instruction =
+    document.getElementById("questionInstruction")
+      .value.trim();
+
+  const type = document.getElementById("questionType").value;
+  const marks = Number(document.getElementById("marks").value);
+
+
+  if (!text) {
+    alert("Please enter a question.");
+    return;
+  }
+
+  if (!marks || marks < 1) {
+    alert("Marks must be at least 1.");
+    return;
+  }
+
+
+  const paper = getCurrentPaper();
+
+  const question = {
+    id: editingQuestionId || Date.now().toString(),
+    text,
+    instruction,
+    type,
+    marks
+  };
+
+  if (type === "multiple-choice") {
+    question.options = [...document.querySelectorAll(".mc-option")].map(input => input.value.trim());
+    question.correctAnswer = Number(document.getElementById("mcCorrectAnswer").value);
+    if (question.options.length < 2 || question.options.some(option => !option)) { alert("Add at least two completed answer options."); return; }
+  } else if (type === "true-false") {
+    question.options = ["True", "False"];
+    question.correctAnswer = document.getElementById("trueFalseAnswer").value;
+  } else if (type === "fill-blank" || type === "short-answer") {
+    question.acceptedAnswers = document.getElementById("acceptedAnswers").value.split(",").map(answer => answer.trim()).filter(Boolean);
+    if (!question.acceptedAnswers.length) { alert("Enter at least one accepted answer."); return; }
+  } else if (type === "explanation") {
+    question.referenceAnswer = document.getElementById("referenceAnswer").value.trim();
+  } else if (type === "matching") {
+    question.pairs = [...document.querySelectorAll(".pair-row")].map(row => ({ left: row.querySelector(".pair-left").value.trim(), right: row.querySelector(".pair-right").value.trim() }));
+    if (question.pairs.length < 2 || question.pairs.some(pair => !pair.left || !pair.right)) { alert("Add at least two completed matching pairs."); return; }
+    question.marksPerPair = Number(document.getElementById("marksPerPair").value);
+    if (!question.marksPerPair || question.marksPerPair < 0.5) { alert("Marks per correct match must be at least 0.5."); return; }
+    question.marks = question.pairs.length * question.marksPerPair;
+  } else {
+    question.items = [...document.querySelectorAll(".order-item")].map(input => input.value.trim()).filter(Boolean);
+    if (question.items.length < 2) { alert("Add at least two words or sentence parts."); return; }
+  }
+
+
+  if (editingQuestionId) {
+
+    const index =
+      paper.questions.findIndex(
+        question => question.id === editingQuestionId
+      );
+
+    paper.questions[index] = question;
+
+  } else {
+
+    paper.questions.push(question);
+
+  }
+
+  window.realtimeSavePaper?.(paper);
+
+
+  saveDatabase();
+
+  closeModal("questionModal");
+
+  renderQuestions();
+}
+
+
+function editQuestion(id) {
+
+  if (!window.realtimeIsAdmin?.()) {
+    alert("Please sign in as an admin before editing questions.");
+    showPage("monitor");
+    return;
+  }
+
+  const paper = getCurrentPaper();
+
+  const question =
+    paper.questions.find(
+      question => question.id === id
+    );
+
+  if (!question) return;
+
+  editingQuestionId = id;
+
+  document.getElementById("questionModalTitle")
+    .textContent = "Edit Question";
+
+  document.getElementById("questionText").value = question.text;
+
+  document.getElementById("questionInstruction")
+    .value = question.instruction || "";
+
+  document.getElementById("questionType").value = question.type || "multiple-choice";
+  document.getElementById("marks")
+    .value = question.marks;
+  renderQuestionFields(question.type ? question : { ...question, type: "multiple-choice" });
+
+  document.getElementById("questionModal")
+    .classList.add("show");
+}
+
+
+function deleteQuestion(id) {
+
+  if (!window.realtimeIsAdmin?.()) {
+    alert("Please sign in as an admin before deleting questions.");
+    showPage("monitor");
+    return;
+  }
+
+  const paper = getCurrentPaper();
+
+  const confirmed =
+    confirm("Delete this question?");
+
+  if (!confirmed) return;
+
+  paper.questions =
+    paper.questions.filter(
+      question => question.id !== id
+    );
+
+  window.realtimeSavePaper?.(paper);
+
+  saveDatabase();
+
+  renderQuestions();
+}
+
+
+/* =========================
+   TEST PAPER SELECTION
+========================= */
+
+function renderTestPapers() {
+
+  const container =
+    document.getElementById("testPaperList");
+
+
+  const availablePapers =
+    database.papers.filter(
+      paper => paper.questions.length > 0
+    );
+
+
+  if (!availablePapers.length) {
+
+    container.innerHTML = `
+      <div class="empty">
+        <h3>No tests available</h3>
+        <p>Create a question paper with questions first.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML =
+    availablePapers.map(paper => {
+
+      const totalMarks =
+        paper.questions.reduce(
+          (total, question) =>
+            total + Number(question.marks),
+          0
+        );
+
+      return `
+        <div class="paper-card">
+
+          <h3>${escapeHTML(paper.title)}</h3>
+
+          <div class="paper-meta">
+            <span class="badge">
+              ${paper.questions.length} Questions
+            </span>
+
+            <span class="badge">
+              ${totalMarks} Marks
+            </span>
+
+            <span class="badge">
+              ${paper.timer_enabled && Number(paper.time_limit_minutes || 0) > 0 ? `${Number(paper.time_limit_minutes)} min timer` : "No timer"}
+            </span>
+          </div>
+
+          <button
+            class="btn btn-primary"
+            data-paper-id="${paper.id}"
+            onclick="startTest('${paper.id}')"
+          >
+            Start Test →
+          </button>
+
+        </div>
+      `;
+
+    }).join("");
+}
+
+async function refreshTestPaperAttemptStates() {
+  if (!window.realtimeFindStudentAttempt) return;
+  for (const paper of database.papers.filter(item => item.questions.length > 0)) {
+    const result = await window.realtimeFindStudentAttempt(paper.id);
+    const button = document.querySelector(`[data-paper-id="${paper.id}"]`);
+    if (!button || !result?.data) continue;
+    const state = window.realtimeAttemptState?.(result.data);
+    button.textContent = state === "in-progress" ? "Resume Test →" : state === "pending-review" ? "View Review Status →" : "View Final Result →";
+  }
+}
+
+
+/* =========================
+   START TEST
+========================= */
+
+async function startTest(id) {
+
+  activeTestPaper =
+    database.papers.find(
+      paper => paper.id === id
+    );
+
+  if (!activeTestPaper) return;
+
+  if (!testTakerName) {
+    testTakerName = prompt("Enter your name or student ID:");
+
+    if (!testTakerName || !testTakerName.trim()) {
+      return;
+    }
+
+    testTakerName = testTakerName.trim();
+    sessionStorage.setItem("english_test_taker_name", testTakerName);
+  }
+
+  const timeLimitMinutes = Number(activeTestPaper.time_limit_minutes || 0);
+  const remoteAttempt = await window.realtimeStartAttempt?.(
+    activeTestPaper.id,
+    activeTestPaper.title,
+    activeTestPaper.questions,
+    testTakerName,
+    { time_limit_minutes: timeLimitMinutes, timer_enabled: Boolean(activeTestPaper.timer_enabled) }
+  );
+  if (!remoteAttempt) {
+    alert("Unable to load this test attempt from Supabase. Please try again.");
+    return;
+  }
+
+  const state = window.realtimeAttemptState?.(remoteAttempt) || "in-progress";
+  if (state !== "in-progress") {
+    renderPersistentAttemptResult(remoteAttempt);
+    return;
+  }
+
+  database.testProgress[id] = {
+    answers: remoteAttempt.answers || {},
+    currentIndex: Number(remoteAttempt.current_index || 0)
+  };
+  saveDatabase();
+  currentTestIndex = database.testProgress[id].currentIndex;
+  document.getElementById("testTitle").textContent = activeTestPaper.title;
+  showPage("test");
+  updateTestTimer(remoteAttempt);
+  renderTestQuestion();
+}
+
+
+/* =========================
+   TEST QUESTION
+========================= */
+
+function updateTestTimer(attempt = null) {
+  const timerBox = document.getElementById("testTimerBox");
+  const timerText = document.getElementById("testTimer");
+  if (!timerBox || !timerText) return;
+  const currentAttempt = attempt || (window.realtimeAttemptState ? null : null);
+  const timeLimitMinutes = Number(activeTestPaper?.time_limit_minutes || 0);
+  const timerEnabled = Boolean(activeTestPaper?.timer_enabled) && timeLimitMinutes > 0;
+  if (!timerEnabled) {
+    timerBox.style.display = "none";
+    clearInterval(activeTestTimerId);
+    activeTestTimerId = null;
+    return;
+  }
+  timerBox.style.display = "block";
+  const deadline = new Date((attempt && attempt.deadline_at) || Date.now() + timeLimitMinutes * 60000);
+  const tick = () => {
+    const remainingMs = Math.max(deadline.getTime() - Date.now(), 0);
+    const totalSeconds = Math.ceil(remainingMs / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    timerText.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    timerText.style.color = remainingMs <= 300000 ? "#d93c3c" : "#1f2937";
+    timerBox.style.borderColor = remainingMs <= 300000 ? "#f8d7da" : "#dfe6ef";
+    if (remainingMs <= 0) {
+      clearInterval(activeTestTimerId);
+      activeTestTimerId = null;
+      if (!activeTestOverdue) {
+        activeTestOverdue = true;
+        submitTest(true);
+      }
+    }
+  };
+  tick();
+  clearInterval(activeTestTimerId);
+  activeTestTimerId = setInterval(tick, 1000);
+}
+
+function renderTestQuestion() {
+
+  const question =
+    activeTestPaper.questions[currentTestIndex];
+
+  const progress =
+    database.testProgress[activeTestPaper.id];
+
+  const selectedAnswer =
+    progress.answers[question.id];
+
+
+  const answered =
+    Object.keys(progress.answers).length;
+
+
+  const percentage =
+    ((currentTestIndex + 1) /
+      activeTestPaper.questions.length) * 100;
+
+
+  document.getElementById("progressLabel")
+    .textContent =
+      `Question ${currentTestIndex + 1} of ${activeTestPaper.questions.length}`;
+
+  document.getElementById("answeredCount")
+    .textContent =
+      `${answered} answered`;
+
+  document.getElementById("progressFill")
+    .style.width = `${percentage}%`;
+
+
+  const type = question.type || "multiple-choice";
+  let answerMarkup = "";
+
+  if (type === "multiple-choice" || type === "true-false") {
+    const options = question.options || ["True", "False"];
+    answerMarkup = options.map((option, index) => `<button class="answer-option ${selectedAnswer === index || selectedAnswer === option ? "selected" : ""}" onclick="selectAnswer('${question.id}', ${type === "true-false" ? `&quot;${escapeAttribute(option)}&quot;` : index})"><strong>${String.fromCharCode(65 + index)}.</strong> ${escapeHTML(option)}</button>`).join("");
+  } else if (type === "fill-blank" || type === "short-answer") {
+    answerMarkup = `<input class="student-input" value="${escapeAttribute(selectedAnswer || "")}" placeholder="Type your answer" oninput="saveTextAnswer('${question.id}', this.value)" />`;
+  } else if (type === "explanation") {
+    answerMarkup = `<textarea class="student-input manual-answer" placeholder="Write your explanation here..." oninput="saveTextAnswer('${question.id}', this.value)">${escapeHTML(selectedAnswer || "")}</textarea>`;
+  } else if (type === "matching") {
+    const answers = Array.isArray(selectedAnswer) ? selectedAnswer : [];
+    const choices = question.pairs.map(pair => pair.right);
+    answerMarkup = `<div class="matching-list">${question.pairs.map((pair, index) => `<div class="matching-row"><div class="matching-prompt">${escapeHTML(pair.left)}</div><select onchange="saveMatchingAnswer('${question.id}', ${index}, this.value)"><option value="">Choose a match</option>${choices.map(choice => `<option value="${escapeAttribute(choice)}" ${answers[index] === choice ? "selected" : ""}>${escapeHTML(choice)}</option>`).join("")}</select></div>`).join("")}</div>`;
+  } else {
+    const pool = getOrderPool(question, progress);
+    const order = Array.isArray(selectedAnswer) ? selectedAnswer : [];
+    const remaining = pool.filter(index => !order.includes(index));
+    answerMarkup = `<p class="type-help">Tap each part in the correct order. Tap a chosen part to remove it.</p><div id="orderBank" class="order-bank">${remaining.map(index => `<button type="button" class="order-word" onclick="addOrderAnswer('${question.id}', ${index})">${escapeHTML(question.items[index])}</button>`).join("")}</div><div class="order-answer">${order.map(index => `<button type="button" class="order-word selected" onclick="removeOrderAnswer('${question.id}', ${index})">${escapeHTML(question.items[index])}</button>`).join("")}</div>`;
+  }
+
+  document.getElementById("testQuestion").innerHTML = `<div class="test-question"><span class="eyebrow">${question.marks} Marks · ${escapeHTML(questionTypeLabel(question))}</span>${question.instruction ? `<p class="question-instruction">${escapeHTML(question.instruction)}</p>` : ""}<h2>${escapeHTML(question.text)}</h2>${answerMarkup}</div>`;
+
+
+  document.getElementById("prevBtn")
+    .style.visibility =
+      currentTestIndex === 0
+        ? "hidden"
+        : "visible";
+
+
+  const nextButton =
+    document.getElementById("nextBtn");
+
+
+  if (
+    currentTestIndex ===
+    activeTestPaper.questions.length - 1
+  ) {
+
+    nextButton.textContent = "Submit Test ✓";
+
+    nextButton.onclick = submitTest;
+
+  } else {
+
+    nextButton.textContent = "Next →";
+
+    nextButton.onclick = nextQuestion;
+
+  }
+}
+
+function getOrderPool(question, progress) {
+  progress.orderPools = progress.orderPools || {};
+  if (!progress.orderPools[question.id]) {
+    progress.orderPools[question.id] = question.items.map((_, index) => index).sort(() => Math.random() - 0.5);
+    saveDatabase();
+  }
+  return progress.orderPools[question.id];
+}
+
+function saveCurrentAnswer(questionId, answer) {
+  const progress = database.testProgress[activeTestPaper.id];
+  progress.answers[questionId] = answer;
+  progress.currentIndex = currentTestIndex;
+  saveDatabase();
+  window.realtimeSaveAnswer?.(questionId, answer, currentTestIndex);
+}
+
+function saveTextAnswer(questionId, value) {
+  saveCurrentAnswer(questionId, value);
+}
+
+function saveMatchingAnswer(questionId, pairIndex, value) {
+  const answers = [...(database.testProgress[activeTestPaper.id].answers[questionId] || [])];
+  answers[pairIndex] = value;
+  saveCurrentAnswer(questionId, answers);
+  renderTestQuestion();
+}
+
+function addOrderAnswer(questionId, itemIndex) {
+  const answers = [...(database.testProgress[activeTestPaper.id].answers[questionId] || []), itemIndex];
+  saveCurrentAnswer(questionId, answers);
+  renderTestQuestion();
+}
+
+function removeOrderAnswer(questionId, itemIndex) {
+  const answers = (database.testProgress[activeTestPaper.id].answers[questionId] || []).filter(index => index !== itemIndex);
+  saveCurrentAnswer(questionId, answers);
+  renderTestQuestion();
+}
+
+
+/* =========================
+   AUTOSAVE ANSWER
+========================= */
+
+function selectAnswer(questionId, answerIndex) {
+  saveCurrentAnswer(questionId, answerIndex);
+  renderTestQuestion();
+}
+
+
+/* =========================
+   TEST NAVIGATION
+========================= */
+
+function nextQuestion() {
+
+  if (
+    currentTestIndex <
+    activeTestPaper.questions.length - 1
+  ) {
+
+    currentTestIndex++;
+
+    database.testProgress[
+      activeTestPaper.id
+    ].currentIndex = currentTestIndex;
+
+    saveDatabase();
+
+    window.realtimeUpdateProgress?.(currentTestIndex);
+
+    renderTestQuestion();
+  }
+}
+
+
+function previousQuestion() {
+
+  if (currentTestIndex > 0) {
+
+    currentTestIndex--;
+
+    database.testProgress[
+      activeTestPaper.id
+    ].currentIndex = currentTestIndex;
+
+    saveDatabase();
+
+    window.realtimeUpdateProgress?.(currentTestIndex);
+
+    renderTestQuestion();
+  }
+}
+
+
+/* =========================
+   SUBMIT TEST
+========================= */
+
+function normalizedAnswer(value) {
+  return String(value ?? "").trim().toLowerCase();
+}
+
+function isAnswerCorrect(question, answer) {
+  const type = question.type || "multiple-choice";
+  if (type === "explanation") return false;
+  if (type === "multiple-choice") return Number(answer) === Number(question.correctAnswer);
+  if (type === "true-false") return normalizedAnswer(answer) === normalizedAnswer(question.correctAnswer);
+  if (type === "fill-blank" || type === "short-answer") return (question.acceptedAnswers || [question.correctAnswer]).some(expected => normalizedAnswer(answer) === normalizedAnswer(expected));
+  if (type === "matching") return Array.isArray(answer) && answer.length === question.pairs.length && question.pairs.every((pair, index) => normalizedAnswer(answer[index]) === normalizedAnswer(pair.right));
+  return Array.isArray(answer) && answer.length === question.items.length && answer.every((itemIndex, index) => Number(itemIndex) === index);
+}
+
+function studentQuestionMaximum(question) {
+  if (question.type === "matching" && question.pairs?.length) return Number(question.marksPerPair || (Number(question.marks || 0) / question.pairs.length) || 1) * question.pairs.length;
+  return Number(question.marks || 0);
+}
+
+function studentQuestionEarned(question, answer) {
+  if (question.type === "matching") {
+    const pairMark = Number(question.marksPerPair || (Number(question.marks || 0) / (question.pairs?.length || 1)) || 1);
+    return (question.pairs || []).reduce((sum, pair, index) => sum + (normalizedAnswer(answer?.[index]) === normalizedAnswer(pair.right) ? pairMark : 0), 0);
+  }
+  return question.type === "explanation" ? 0 : (isAnswerCorrect(question, answer) ? studentQuestionMaximum(question) : 0);
+}
+
+let recoveredAttemptId = null;
+
+function clearResultSummary() {
+  document.querySelectorAll("#result .result-summary").forEach(element => element.remove());
+  document.getElementById("mistakeReview").hidden = true;
+  document.getElementById("mistakeReview").innerHTML = "";
+}
+
+function showReviewWaiting() {
+  clearResultSummary();
+  document.getElementById("finalScore").closest(".score-circle").hidden = true;
+  document.getElementById("resultText").hidden = true;
+  document.getElementById("resultDetails").hidden = true;
+  document.getElementById("resultReviewButton").hidden = true;
+  document.getElementById("reviewWaiting").hidden = false;
+  showPage("result");
+}
+
+function renderPersistentAttemptResult(attempt) {
+  recoveredAttemptId = attempt.id;
+  sessionStorage.setItem("english_test_last_attempt", JSON.stringify(attempt));
+  if (window.realtimeAttemptState?.(attempt) === "pending-review") {
+    showReviewWaiting();
+    return;
+  }
+
+  clearResultSummary();
+  document.getElementById("reviewWaiting").hidden = true;
+  document.getElementById("finalScore").closest(".score-circle").hidden = false;
+  document.getElementById("resultText").hidden = false;
+  document.getElementById("resultDetails").hidden = false;
+  document.getElementById("resultReviewButton").hidden = false;
+  const questions = attempt.questions || [];
+  const answers = attempt.answers || {};
+  const manualMarks = attempt.manual_marks || {};
+  const statuses = questions.map(question => {
+    if (question.type === "explanation") {
+      if (answers[question.id] === undefined || String(answers[question.id]).trim() === "") return "unanswered";
+      return Object.prototype.hasOwnProperty.call(manualMarks, question.id) ? "reviewed" : "pending";
+    }
+    if (answers[question.id] === undefined || answers[question.id] === "") return "unanswered";
+    return isAnswerCorrect(question, answers[question.id]) ? "correct" : "incorrect";
+  });
+  const score = Number(attempt.score || 0);
+  const totalMarks = Number(attempt.total_marks || questions.reduce((sum, question) => sum + Number(question.marks || 0), 0));
+  const percentage = Number.isFinite(Number(attempt.percentage)) ? Number(attempt.percentage) : (totalMarks ? Math.round(score / totalMarks * 100) : 0);
+  const publicStudentDisplayId = attempt.student_id || attempt.display_student_id || window.getPublicStudentId?.() || attempt.user_id || "Unknown";
+  const correct = statuses.filter(status => status === "correct").length;
+  const incorrect = statuses.filter(status => status === "incorrect").length;
+  const unanswered = statuses.filter(status => status === "unanswered").length;
+  const pending = statuses.filter(status => status === "pending").length;
+  document.getElementById("finalScore").textContent = `${percentage}%`;
+  document.getElementById("resultText").textContent = "Final result";
+  document.getElementById("resultDetails").textContent = `Student ID: ${publicStudentDisplayId} · You scored ${score} out of ${totalMarks} marks.`;
+  document.getElementById("resultDetails").insertAdjacentHTML("afterend", `<div class="result-summary"><div class="result-stat"><span>Student ID</span><strong>${publicStudentDisplayId}</strong></div><div class="result-stat"><span>Score</span><strong>${score} / ${totalMarks}</strong></div><div class="result-stat"><span>Percentage</span><strong>${percentage}%</strong></div><div class="result-stat"><span>Correct</span><strong>${correct}</strong></div><div class="result-stat"><span>Incorrect</span><strong>${incorrect}</strong></div><div class="result-stat"><span>Unanswered</span><strong>${unanswered}</strong></div><div class="result-stat"><span>Review</span><strong>${pending ? `${pending} pending` : "Final"}</strong></div></div>`);
+  showPage("result");
+}
+
+window.studentAttemptUpdated = attempt => {
+  if (recoveredAttemptId && String(attempt.id) === String(recoveredAttemptId)) renderPersistentAttemptResult(attempt);
+};
+
+async function submitTest(expired = false) {
+  if (!activeTestPaper || !database.testProgress[activeTestPaper.id]) return;
+
+  const progress =
+    database.testProgress[activeTestPaper.id];
+
+
+  let score = 0;
+  let totalMarks = 0;
+
+
+  activeTestPaper.questions.forEach(question => {
+
+    totalMarks += studentQuestionMaximum(question);
+    score += studentQuestionEarned(question, progress.answers[question.id]);
+
+  });
+
+
+  const percentage =
+    totalMarks
+      ? Math.round(
+          (score / totalMarks) * 100
+        )
+      : 0;
+
+  const resultAttempt = {
+    questions: activeTestPaper.questions,
+    answers: { ...progress.answers },
+    manual_marks: {},
+    score,
+    total_marks: totalMarks,
+    percentage
+  };
+  sessionStorage.setItem("english_test_last_attempt", JSON.stringify(resultAttempt));
+  const statuses = activeTestPaper.questions.map(question => {
+    if (question.type === "explanation") return progress.answers[question.id]?.trim() ? "pending" : "unanswered";
+    if (progress.answers[question.id] === undefined || progress.answers[question.id] === "") return "unanswered";
+    return isAnswerCorrect(question, progress.answers[question.id]) ? "correct" : "incorrect";
+  });
+  const correctCount = statuses.filter(status => status === "correct").length;
+  const incorrectCount = statuses.filter(status => status === "incorrect").length;
+  const unansweredCount = statuses.filter(status => status === "unanswered").length;
+  const pendingCount = statuses.filter(status => status === "pending").length;
+  const hasManualReview = activeTestPaper.questions.some(question => question.type === "explanation");
+
+  const submission = await window.realtimeSubmit?.(score, totalMarks, percentage);
+  if (submission?.error) {
+    alert(`Unable to save test completion: ${submission.error.message}`);
+    return;
+  }
+
+  clearInterval(activeTestTimerId);
+  activeTestTimerId = null;
+  activeTestOverdue = false;
+
+  delete database.testProgress[activeTestPaper.id];
+  saveDatabase();
+
+  const submittedAttempt = submission?.attempt || {
+    id: submission?.attemptId,
+    status: "completed",
+    questions: activeTestPaper.questions,
+    answers: { ...progress.answers },
+    manual_marks: {},
+    score,
+    total_marks: totalMarks,
+    percentage,
+    student_id: window.getPublicStudentId?.() || "Unknown"
+  };
+  recoveredAttemptId = submittedAttempt.id;
+  if (hasManualReview) {
+    sessionStorage.setItem("english_test_last_attempt", JSON.stringify(submittedAttempt));
+    showReviewWaiting();
+    return;
+  }
+
+  if (expired) {
+    document.getElementById("resultText").textContent = "Time expired";
+    document.getElementById("resultDetails").textContent = `Your time ran out. Final score: ${score} out of ${totalMarks} marks.`;
+  }
+
+  renderPersistentAttemptResult(submittedAttempt);
+  return;
+
+
+  document.getElementById("finalScore")
+    .textContent =
+      `${percentage}%`;
+
+
+  document.getElementById("resultDetails")
+    .textContent =
+      `You scored ${score} out of ${totalMarks} marks.`;
+
+  document.getElementById("resultDetails").insertAdjacentHTML("afterend", `<div class="result-summary"><div class="result-stat"><span>Score</span><strong>${score} / ${totalMarks}</strong></div><div class="result-stat"><span>Percentage</span><strong>${percentage}%</strong></div><div class="result-stat"><span>Correct</span><strong>${correctCount}</strong></div><div class="result-stat"><span>Incorrect</span><strong>${incorrectCount}</strong></div><div class="result-stat"><span>Unanswered</span><strong>${unansweredCount}</strong></div><div class="result-stat"><span>Review</span><strong>${pendingCount ? `${pendingCount} pending` : "Final"}</strong></div></div>`);
+
+
+  let message;
+
+  if (percentage >= 80) {
+    message = "Excellent performance! 🌟";
+  } else if (percentage >= 60) {
+    message = "Good job! Keep improving. 💪";
+  } else if (percentage >= 40) {
+    message = "Nice try! Practice makes progress. 📚";
+  } else {
+    message = "Keep learning and try again! 🚀";
+  }
+
+
+  document.getElementById("resultText")
+    .textContent = message;
+
+
+  showPage("result");
+}
+
+function reviewAnswerText(question, answer) {
+  if (answer === undefined || answer === null || answer === "" || (Array.isArray(answer) && !answer.length)) return "Unanswered";
+  const type = question.type || "multiple-choice";
+  if (type === "multiple-choice") return question.options?.[answer] || "Unanswered";
+  if (type === "true-false" || type === "fill-blank" || type === "short-answer" || type === "explanation") return Array.isArray(answer) ? answer.join(", ") : String(answer);
+  if (type === "matching") return (question.pairs || []).map((pair, index) => `${pair.left}: ${answer[index] || "Unanswered"}`).join("; ");
+  return (answer || []).map(index => question.items?.[index] || "").join(" ");
+}
+
+function correctAnswerText(question) {
+  const type = question.type || "multiple-choice";
+  if (type === "multiple-choice") return question.options?.[question.correctAnswer] || "Unanswered";
+  if (type === "true-false") return question.correctAnswer;
+  if (type === "fill-blank" || type === "short-answer") return (question.acceptedAnswers || []).join(", ");
+  if (type === "matching") return (question.pairs || []).map(pair => `${pair.left}: ${pair.right}`).join("; ");
+  return (question.items || []).join(" ");
+}
+
+function showMistakeReview() {
+  const review = document.getElementById("mistakeReview");
+  const stored = sessionStorage.getItem("english_test_last_attempt");
+  const attempt = stored ? JSON.parse(stored) : null;
+  if (!attempt) { review.hidden = false; review.innerHTML = `<p class="type-help">This completed test review is no longer available in this browser.</p>`; return; }
+  const cards = attempt.questions.map((question, index) => {
+    const answer = attempt.answers[question.id];
+    const type = question.type || "multiple-choice";
+    if (type === "explanation") {
+      const manualMarks = attempt.manual_marks || {};
+      const reviewed = Object.prototype.hasOwnProperty.call(manualMarks, question.id);
+      return `<article class="mistake-card"><h3>Q${index + 1} · Explanation / Manual Review</h3><p>${escapeHTML(question.text)}</p><div class="mistake-answer yours"><span class="mistake-label">Your Answer</span><strong>${escapeHTML(reviewAnswerText(question, answer))}</strong></div><p class="type-help">${reviewed ? `✅ Reviewed: ${Number(manualMarks[question.id])} / ${Number(question.marks) || 0} marks` : `⏳ Pending Teacher Review · Maximum marks: ${Number(question.marks) || 0}`}</p></article>`;
+    }
+    const unanswered = answer === undefined || answer === null || answer === "" || (Array.isArray(answer) && !answer.length);
+    if (!unanswered && isAnswerCorrect(question, answer)) return "";
+    const earned = studentQuestionEarned(question, answer);
+    const maximum = studentQuestionMaximum(question);
+    return `<article class="mistake-card"><h3>${unanswered ? "⬜" : "❌"} Question ${index + 1}</h3><p>${escapeHTML(question.text)}</p><div class="mistake-answer yours"><span class="mistake-label">Your Answer ${unanswered ? "⬜" : "❌"}</span><strong>${escapeHTML(reviewAnswerText(question, answer))}</strong></div><div class="mistake-answer correct-answer"><span class="mistake-label">Correct Answer ✅</span><strong>${escapeHTML(correctAnswerText(question))}</strong></div><p class="type-help">Marks: ${earned} / ${maximum}</p></article>`;
+  }).filter(Boolean).join("");
+  review.hidden = false;
+  review.innerHTML = `<h2>Mistake Review</h2>${cards || `<p class="type-help">No automatically graded mistakes. Great work!</p>`}`;
+  review.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+
+/* =========================
+   SECURITY / HTML ESCAPE
+========================= */
+
+function escapeHTML(value) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent = value;
+
+  return div.innerHTML;
+}
+
+
+/* =========================
+   INITIAL RENDER
+========================= */
+
+renderPapers();
+
+</script>
+
+<script type="module" src="realtime.js?v=5"></script>
+
+</body>
+</html>
